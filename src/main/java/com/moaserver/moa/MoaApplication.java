@@ -10,4 +10,5 @@ public class MoaApplication {
         SpringApplication.run(MoaApplication.class, args);
     }
     //init
+    //init
 }
