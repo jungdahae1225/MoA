@@ -1,10 +1,7 @@
 package com.moaserver.moa.entity.location;
 
 import lombok.*;
-import org.hibernate.annotations.DynamicInsert;
-
 import javax.persistence.*;
-
 import static lombok.AccessLevel.PROTECTED;
 
 @Builder @Entity

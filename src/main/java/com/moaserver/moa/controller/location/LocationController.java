@@ -18,13 +18,13 @@ public class LocationController {
     private final LocationService locationService;
 
     @PostMapping("/location")
-    public ResponseEntity<Location> signUp(@RequestBody LocationDto locationDto) {
+    public ResponseEntity<Location> location(@RequestBody LocationDto locationDto) {
         Location location = locationService.save(locationDto);
         return new ResponseEntity(locationDto, HttpStatus.CREATED);
     }
 
     @GetMapping("/location/{memberid}")
-    public ResponseEntity<Location> signUp(@PathVariable Long memberId) {
+    public ResponseEntity<Location> location(@PathVariable Long memberId) {
         Location location = locationService.findNearBy(memberId);
 
 
