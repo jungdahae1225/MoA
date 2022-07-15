@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-
+//사용자 확인
 @Service
 @Transactional(readOnly = true)
 @AllArgsConstructor
