@@ -61,6 +61,14 @@ public class MemberService {
     }
 
 
+    public Long deleteMember(Long member_Id) {
+
+        memberRepository.deleteById(member_Id);
+
+        return member_Id;
+    }
+
+
 
     public Optional<Member> findById(Long memberId){
 

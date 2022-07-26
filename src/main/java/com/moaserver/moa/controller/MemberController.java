@@ -39,7 +39,7 @@ public class MemberController {
     /*
     학교등록 API
      */
-    @PatchMapping("/myPage/school/{id}")
+    @PutMapping("/myPage/school/{id}")
     public Member schoolResister(@PathVariable Long id, @RequestBody @Valid MemberRequestDto.SchoolDto schoolDto,  BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
@@ -70,7 +70,7 @@ public class MemberController {
     /*
     회원정보 수정 API
      */
-    @PatchMapping("/myPage/update/{id}")
+    @PutMapping("/myPage/update/{id}")
     public Member updateProfile(@PathVariable Long id, @RequestBody @Valid MemberRequestDto.UpdateDto updateDto,  BindingResult bindingResult){
 
         if(bindingResult.hasErrors()){
@@ -88,14 +88,11 @@ public class MemberController {
     회원탈퇴 API
      */
     @DeleteMapping("/myPage/{id}")
-    public ResponseEntity<Member> deleteMember(@PathVariable Long id) {
+    public Long deleteMember(@PathVariable Long id) {
 
-        Optional<Member> member = memberService.findById(id);
+        Long memberId = memberService.deleteMember(id);
 
-        if(member.isEmpty())
-            throw new MemberException("찾는 아이디가 없습니다.");
-
-        return new ResponseEntity(member, HttpStatus.OK);
+        return memberId;
     }
 
 
