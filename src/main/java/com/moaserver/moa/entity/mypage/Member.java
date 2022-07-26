@@ -31,6 +31,7 @@ public class Member {
     private String userSchool;
     private String userResidence;
 
+
     @Builder
     public Member(String nickname, String email, String password, String userSchool){
 

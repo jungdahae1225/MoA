@@ -35,6 +35,7 @@ public class MemberService {
         }
     }
 
+
     //학교등록
     public Member schoolRegister(Long member_Id, MemberRequestDto.SchoolDto schoolDto){
 

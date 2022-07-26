@@ -23,6 +23,7 @@ public class MemberRequestDto {
     private String userSchool;
 
 
+
     //dto -> entity
     public Member toEntity(){
 
