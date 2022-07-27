@@ -22,7 +22,7 @@ public class Cash {
     @Column(name = "cash_id")
     private Long id;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
 

@@ -22,7 +22,7 @@ public class Mileage {
     @Column(name = "mileage_id")
     private Long id;
 
-    @OneToOne(fetch = LAZY)
+    @OneToOne
     @JoinColumn(name = "member_id")
     private Member member;
 
