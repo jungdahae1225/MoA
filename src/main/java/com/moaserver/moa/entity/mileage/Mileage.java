@@ -26,5 +26,5 @@ public class Mileage {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String mileageBalance; //잔액
+    private Double mileageBalance; //잔액
 }
