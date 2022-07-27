@@ -26,5 +26,5 @@ public class Cash {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String cashBalance; //잔액
+    private Double cashBalance; //잔액
 }
