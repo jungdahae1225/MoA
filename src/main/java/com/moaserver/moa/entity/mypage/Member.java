@@ -1,15 +1,15 @@
 package com.moaserver.moa.entity.mypage;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.moaserver.moa.entity.goal.Goal;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -30,6 +30,9 @@ public class Member {
 
     private String userSchool;
     private String userResidence;
+
+    @OneToMany(mappedBy = "member")
+    private List<Goal> goals = new ArrayList<>();
 
 
     @Builder
