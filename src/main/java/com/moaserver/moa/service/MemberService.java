@@ -1,5 +1,6 @@
 package com.moaserver.moa.service;
 
+
 import com.moaserver.moa.entity.mypage.Member;
 import com.moaserver.moa.entity.mypage.MemberRequestDto;
 import com.moaserver.moa.exception.MemberException;
@@ -29,15 +30,15 @@ public class MemberService {
     /*
     이메일(아이디) 중복검사
      */
-    private void duplicatedMemberByName(String email){
-        if(findByEmail(email).isPresent()){
+    private void duplicatedMemberByName(String email) {
+        if (findByEmail(email).isPresent()) {
             throw new MemberException("이미 존재하는 이메일입니다");
         }
     }
 
 
     //학교등록
-    public Member schoolRegister(Long member_Id, MemberRequestDto.SchoolDto schoolDto){
+    public Member schoolRegister(Long member_Id, MemberRequestDto.SchoolDto schoolDto) {
 
         Optional<Member> fMember = memberRepository.findById(member_Id);
 
@@ -48,9 +49,8 @@ public class MemberService {
     }
 
 
-
     //회원정보 수정
-    public Member updateProfile(Long member_Id, MemberRequestDto.UpdateDto updateDto){
+    public Member updateProfile(Long member_Id, MemberRequestDto.UpdateDto updateDto) {
 
         Optional<Member> fMember = memberRepository.findById(member_Id);
 
@@ -72,17 +72,15 @@ public class MemberService {
     }
 
 
-
-    public Optional<Member> findById(Long memberId){
+    public Optional<Member> findById(Long memberId) {
 
         return memberRepository.findById(memberId);
     }
 
-    public Optional<Member> findByEmail(String email){
+    public Optional<Member> findByEmail(String email) {
 
         return memberRepository.findByEmail(email);
     }
-
 
 
 }

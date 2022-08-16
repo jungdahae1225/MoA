@@ -1,5 +1,6 @@
 package com.moaserver.moa.controller;
 
+
 import com.moaserver.moa.entity.mypage.Member;
 import com.moaserver.moa.entity.mypage.MemberRequestDto;
 import com.moaserver.moa.exception.MemberException;
@@ -96,7 +97,6 @@ public class MemberController {
 
         return memberId;
     }
-
 
 
 }
