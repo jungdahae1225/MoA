@@ -33,6 +33,7 @@ public class Goal {
     private boolean completed;  //false: 미달성, true: 달성
 
     @Column(nullable = false)
+
     private YearMonth date;
 
     @JsonIgnore
@@ -50,6 +51,13 @@ public class Goal {
         this.completed = completed;
         this.date = date;
         this.member = member;
+    }
+
+
+    public void GoalUpdate(String content, Long price, boolean completed){
+        this.content = content;
+        this.price = price;
+        this.completed = completed;
     }
 }
 

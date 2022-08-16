@@ -15,6 +15,7 @@ public class MemberRequestDto {
     @NotBlank(message = "닉네임 입력은 필수입니다")
     private String nickname;
 
+    @NotBlank(message = "이메일 입력은 필수입니다")
     @Email(message = "유효한 형식의 이메일이 아닙니다")
     private String email;
 
@@ -22,6 +23,9 @@ public class MemberRequestDto {
     private String password;
     private String userSchool;
 
+    private String latitude;
+
+    private String longitude;
 
 
     //dto -> entity
@@ -42,23 +46,30 @@ public class MemberRequestDto {
     public static class SchoolDto {
 
         private String userSchool;
+        private String latitude;
+        private String longitude;
 
         @Builder
-        public SchoolDto(String userSchool){
+        public SchoolDto(String userSchool, String latitude, String longitude){
+
             this.userSchool = userSchool;
+            this.latitude = latitude;
+            this.longitude = longitude;
         }
     }
+
+
 
     @Getter
     @NoArgsConstructor
     public static class UpdateDto {
 
-        private String email;
+        private String nickname;
         private String password;
 
         @Builder
-        public UpdateDto(String email, String password){
-            this.email = email;
+        public UpdateDto(String nickname, String password){
+            this.nickname = nickname;
             this.password = password;
         }
     }

@@ -27,11 +27,11 @@ public class MemberService {
     }
 
     /*
-    닉네임 중복검사
+    이메일(아이디) 중복검사
      */
-    private void duplicatedMemberByName(String name){
-        if(findByNickname(name).isPresent()){
-            throw new MemberException("이미 존재하는 닉네임입니다");
+    private void duplicatedMemberByName(String email){
+        if(findByEmail(email).isPresent()){
+            throw new MemberException("이미 존재하는 이메일입니다");
         }
     }
 
@@ -42,10 +42,12 @@ public class MemberService {
         Optional<Member> fMember = memberRepository.findById(member_Id);
 
         Member member = fMember.get();
-        member.SchoolUpdate(schoolDto.getUserSchool());
+        member.SchoolUpdate(schoolDto.getUserSchool(), schoolDto.getLatitude(), schoolDto.getLongitude());
 
         return memberRepository.save(member);
     }
+
+
 
     //회원정보 수정
     public Member updateProfile(Long member_Id, MemberRequestDto.UpdateDto updateDto){
@@ -54,13 +56,14 @@ public class MemberService {
 
         Member member = fMember.get();
 
-        member.ProfileUpdate(updateDto.getEmail(), updateDto.getPassword());
+        member.ProfileUpdate(updateDto.getNickname(), updateDto.getPassword());
 
         return memberRepository.save(member);
 
     }
 
 
+    //회원탈퇴
     public Long deleteMember(Long member_Id) {
 
         memberRepository.deleteById(member_Id);
@@ -75,8 +78,9 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-    public Optional<Member> findByNickname(String name){
-        return memberRepository.findByNickname(name);
+    public Optional<Member> findByEmail(String email){
+
+        return memberRepository.findByEmail(email);
     }
 
 

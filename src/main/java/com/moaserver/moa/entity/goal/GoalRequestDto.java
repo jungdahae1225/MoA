@@ -44,5 +44,22 @@ public class GoalRequestDto {
     }
 
 
+    @Getter
+    @NoArgsConstructor
+    public static class UpdateDto {
+
+        private String content;
+        private Long price;
+        private boolean completed;
+
+        @Builder
+        public UpdateDto(String content, Long price, boolean completed){
+            this.content = content;
+            this.price = price;
+            this.completed = completed;
+        }
+    }
+
+
 
 }

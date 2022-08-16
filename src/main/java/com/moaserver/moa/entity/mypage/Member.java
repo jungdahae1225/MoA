@@ -8,28 +8,39 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter @Setter
 @NoArgsConstructor
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String nickname;    //아이디
+    @Column(nullable = false)
+    private String nickname;
 
-    private String email;
+    @Column(nullable = false)
+    private String email;       //아이디
 
     @Column(nullable = false)
     private String password;
 
     private String userSchool;
+
+    private String latitude;
+
+    private String longitude;
+
     private String userResidence;
+
+
 
     @OneToMany(mappedBy = "member")
     private List<Goal> goals = new ArrayList<>();
@@ -45,12 +56,18 @@ public class Member {
 
     }
 
-    public void SchoolUpdate(String userSchool){
+
+
+
+    public void SchoolUpdate(String userSchool, String latitude, String longitude){
+
         this.userSchool = userSchool;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public void ProfileUpdate(String email, String password){
-        this.email = email;
+    public void ProfileUpdate(String nickname, String password){
+        this.nickname = nickname;
         this.password = password;
     }
 
