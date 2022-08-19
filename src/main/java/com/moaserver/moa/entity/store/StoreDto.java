@@ -1,15 +1,15 @@
-package com.moaserver.moa.entity.location;
+package com.moaserver.moa.entity.store;
 
 import lombok.Data;
 
 @Data
-public class LocationDto {
+public class StoreDto {
     private String name;
     private double lat; //위도
     private double lng; //경도
 
-    public Location toEntity(){
-        return Location.builder()
+    public Store toEntity(){
+        return Store.builder()
                 .name(name)
                 .lat(lat)
                 .lng(lng)
