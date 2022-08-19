@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class StoreController {
@@ -20,13 +22,11 @@ public class StoreController {
         return new ResponseEntity(storeDto, HttpStatus.CREATED);
     }
 
-    //주변 사용처 찾기
+    //주변 사용처
     @GetMapping("/store/{memberid}")
-    public ResponseEntity<Store> location(@PathVariable Long memberId) {
-        storeService.findNearBy(memberId);
-
-
-        return new ResponseEntity(HttpStatus.CREATED);
+    public ResponseEntity<List<Store>> location(@PathVariable Long memberId) {
+        List<Store> nearBy = storeService.findNearBy(memberId);
+        return new ResponseEntity(nearBy,HttpStatus.CREATED);
     }
 
 }

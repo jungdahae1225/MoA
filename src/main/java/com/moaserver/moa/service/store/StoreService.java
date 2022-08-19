@@ -9,7 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-//사용자 확인
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @AllArgsConstructor
@@ -21,14 +23,29 @@ public class StoreService {
         return storeRepository.save(storeDto.toEntity());
     }
 
-    public Member findNearBy(Long memberId) {
+    public List<Store> findNearBy(Long memberId) {
         //1.멤버의 등록된 위치를 받음
+        //거리 계산 (멤버 경도 - 상점 경도)제곱 + (멤버 위도 - 상점 위도)제곱의 제곱근
         Member member = memberRepository.findById(memberId).get();
+        double memberLat = member.getLatitude(); //멤버의 위도
+        double memberLng = member.getLongitude(); //멤버의 경도
 
+        List<Store> stores = storeRepository.findAll();
+        List<Store> nearStores = new ArrayList<>();
 
-        //사용자의 위치 정보를 가져온 후 Location DB에서 주변 상점을 모두 찾아 반환 로직 작성
+        for(Store store : stores) {
+            double storeLat = store.getLat();
+            double storeLng = store.getLng();
 
-        return member;
+            double lat = (memberLat - storeLat) * (memberLat - storeLat);
+            double lng = (memberLng - storeLng) * (memberLng - storeLng);
+
+            double distance = Math.sqrt(lat + lng);
+
+            if (distance < 50000) {//km로 계산 되기 때문.
+                nearStores.add(store);
+            }
+        }
+        return nearStores;
     }
-
 }

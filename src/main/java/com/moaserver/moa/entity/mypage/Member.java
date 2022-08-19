@@ -36,9 +36,9 @@ public class Member {
 
     private String userSchool;
 
-    private String latitude;
+    private double latitude;
 
-    private String longitude;
+    private double longitude;
 
     private String userResidence;
 
@@ -69,7 +69,7 @@ public class Member {
 
 
 
-    public void SchoolUpdate(String userSchool, String latitude, String longitude){
+    public void SchoolUpdate(String userSchool, double latitude, double longitude){
 
         this.userSchool = userSchool;
         this.latitude = latitude;

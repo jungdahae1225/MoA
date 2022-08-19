@@ -46,11 +46,11 @@ public class MemberRequestDto {
     public static class SchoolDto {
 
         private String userSchool;
-        private String latitude;
-        private String longitude;
+        private double latitude;
+        private double longitude;
 
         @Builder
-        public SchoolDto(String userSchool, String latitude, String longitude){
+        public SchoolDto(String userSchool, double latitude, double longitude){
 
             this.userSchool = userSchool;
             this.latitude = latitude;
