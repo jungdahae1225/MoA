@@ -2,8 +2,9 @@ package com.moaserver.moa.controller.cash;
 
 import com.moaserver.moa.controller.cash.dto.CashRequestDto;
 import com.moaserver.moa.controller.cash.dto.CashResponseDto;
-import com.moaserver.moa.entity.location.Location;
-import com.moaserver.moa.entity.mileage.Mileage;
+import com.moaserver.moa.entity.cash.Cash;
+import com.moaserver.moa.entity.cash.Mileage;
+import com.moaserver.moa.entity.mypage.Member;
 import com.moaserver.moa.errors.UserException;
 import com.moaserver.moa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
