@@ -2,6 +2,7 @@ package com.moaserver.moa.controller;
 
 import com.moaserver.moa.entity.store.Store;
 import com.moaserver.moa.entity.store.StoreDto;
+import com.moaserver.moa.repository.StoreRepository;
 import com.moaserver.moa.service.store.StoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -14,12 +15,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StoreController {
     private final StoreService storeService;
+    private final StoreRepository storeRepository;
 
     //마일리지 사용처 등록
     @PostMapping("/store")
-    public ResponseEntity<Store> location(@RequestBody StoreDto storeDto) {
-        Store store = storeService.save(storeDto);
-        return new ResponseEntity(storeDto, HttpStatus.CREATED);
+    public ResponseEntity<List<Store>> Store() {
+        List<Store> all = storeRepository.findAll();
+        return new ResponseEntity(all, HttpStatus.CREATED);
+    }
+
+    //주변 사용처
+    @GetMapping("/store")
+    public ResponseEntity<List<Store>> StoreAll(@PathVariable Long memberId) {
+        List<Store> nearBy = storeService.findNearBy(memberId);
+        return new ResponseEntity(nearBy,HttpStatus.CREATED);
     }
 
     //주변 사용처

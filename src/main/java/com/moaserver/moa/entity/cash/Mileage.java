@@ -1,5 +1,6 @@
 package com.moaserver.moa.entity.cash;
 
+import com.moaserver.moa.entity.mypage.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
