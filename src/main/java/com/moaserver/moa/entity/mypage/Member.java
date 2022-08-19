@@ -1,6 +1,8 @@
 package com.moaserver.moa.entity.mypage;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.moaserver.moa.entity.cash.Cash;
+import com.moaserver.moa.entity.cash.Mileage;
 import com.moaserver.moa.entity.goal.Goal;
 import lombok.Builder;
 import lombok.Getter;
@@ -39,6 +41,14 @@ public class Member {
     private String longitude;
 
     private String userResidence;
+
+    @OneToOne
+    @JoinColumn(name = "cash_id")
+    private Cash cash;
+
+    @OneToOne
+    @JoinColumn(name = "mileage_id")
+    private Mileage mileage;
 
 
 
