@@ -72,6 +72,23 @@ public class GoalController {
     }
 
 
+
+    /*
+    월별 목표달성률 API
+     */
+    @GetMapping("/goal/rate/{memberId}")
+    public int getGoalRate(@PathVariable Long memberId, @RequestParam String date) {
+
+        Long allCnt = goalService.countByMemberAndDate(memberId, date);
+        Long checkCnt = goalService.completedGoal(memberId, date);
+
+        int rate = (int)(((double)checkCnt/(double)allCnt) * 100);
+
+        return rate;
+    }
+
+
+
     /*
     목표달성 삭제 API
      */

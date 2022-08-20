@@ -6,7 +6,7 @@ import java.time.YearMonth;
 
 public interface GoalRepositoryCustom {
 
-    Long countByGoals(Member member, YearMonth date);
+    Long completeCount(Member member, YearMonth date);
 
 
 }

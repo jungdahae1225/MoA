@@ -45,6 +45,9 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Goal> goals = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Scrap> scrap = new ArrayList<>();
+
 
     @Builder
     public Member(String nickname, String email, String password, String userSchool){

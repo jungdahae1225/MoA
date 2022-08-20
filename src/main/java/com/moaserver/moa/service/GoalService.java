@@ -5,6 +5,7 @@ import com.moaserver.moa.entity.goal.GoalRequestDto;
 import com.moaserver.moa.entity.goal.GoalResponseDto;
 import com.moaserver.moa.entity.mypage.Member;
 import com.moaserver.moa.repository.GoalRepository;
+import com.moaserver.moa.repository.GoalRepositoryCustomImpl;
 import com.moaserver.moa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import java.util.Optional;
 public class GoalService {
 
     private final GoalRepository goalRepository;
+    private final GoalRepositoryCustomImpl goalRepositoryCustom;
     private final MemberRepository memberRepository;
 
     /*
@@ -93,6 +95,31 @@ public class GoalService {
 
 
         return goalList;
+
+    }
+
+
+
+
+    //월별 목표달성 전체개수
+    public Long countByMemberAndDate(Long memberId, String date){
+
+        Optional<Member> fMember = memberRepository.findById(memberId);
+        Member member = fMember.get();
+
+        Long cnt = goalRepository.countByMemberAndDate(member, YearMonth.parse(date));
+
+        return cnt;
+    }
+
+    public Long completedGoal(Long memberId, String date){
+
+        Optional<Member> fMember = memberRepository.findById(memberId);
+        Member member = fMember.get();
+
+        Long cnt = goalRepositoryCustom.completeCount(member, YearMonth.parse(date));
+
+        return cnt;
 
     }
 
