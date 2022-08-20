@@ -1,7 +1,6 @@
-package com.moaserver.moa.entity;
+package com.moaserver.moa.entity.cash;
 
-import com.moaserver.moa.entity.cash.Cash;
-import com.moaserver.moa.entity.mileage.Mileage;
+import com.moaserver.moa.entity.mypage.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,17 +15,18 @@ import static lombok.AccessLevel.PROTECTED;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor(access = PROTECTED)
-public class Member {
+public class Mileage {
+    /**
+     * 사용자의 마일리지
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = "mileage_id")
     private Long id;
 
-   @OneToOne
-   @JoinColumn(name = "cash_id")
-    private Cash cash;
-
     @OneToOne
-    @JoinColumn(name = "mileage_id")
-   private Mileage mileage;
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    private Double mileageBalance; //잔액
 }

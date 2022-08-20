@@ -1,6 +1,8 @@
 package com.moaserver.moa.entity.mypage;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.moaserver.moa.entity.cash.Cash;
+import com.moaserver.moa.entity.cash.Mileage;
 import com.moaserver.moa.entity.goal.Goal;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,11 +36,19 @@ public class Member {
 
     private String userSchool;
 
-    private String latitude;
+    private double latitude;
 
-    private String longitude;
+    private double longitude;
 
     private String userResidence;
+
+    @OneToOne
+    @JoinColumn(name = "cash_id")
+    private Cash cash;
+
+    @OneToOne
+    @JoinColumn(name = "mileage_id")
+    private Mileage mileage;
 
 
 
@@ -62,7 +72,7 @@ public class Member {
 
 
 
-    public void SchoolUpdate(String userSchool, String latitude, String longitude){
+    public void SchoolUpdate(String userSchool, double latitude, double longitude){
 
         this.userSchool = userSchool;
         this.latitude = latitude;
