@@ -36,6 +36,7 @@ public class GoalController {
             throw new GoalException("입력값을 다시 확인해주세요");
         }
 
+
         return goalService.addGoal(memberId, goalDto);
     }
 

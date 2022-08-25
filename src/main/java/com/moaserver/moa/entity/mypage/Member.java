@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.moaserver.moa.entity.cash.Cash;
 import com.moaserver.moa.entity.cash.Mileage;
 import com.moaserver.moa.entity.goal.Goal;
+import com.moaserver.moa.entity.scrap.Scrap;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
