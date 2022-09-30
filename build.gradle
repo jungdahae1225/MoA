@@ -25,10 +25,18 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web-services'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
+
+    implementation 'mysql:mysql-connector-java'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1' //jwt
 
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation group: 'org.javassist', name: 'javassist', version: '3.29.0-GA'
+
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.4.5'
+
+//    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 }
 
 tasks.named('test') {

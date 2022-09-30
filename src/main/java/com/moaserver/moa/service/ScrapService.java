@@ -22,9 +22,9 @@ import java.util.Optional;
 @Transactional
 public class ScrapService {
 
-    MemberRepository memberRepository;
-    StoreRepository storeRepository;
-    ScrapRepository scrapRepository;
+    private final MemberRepository memberRepository;
+    private final StoreRepository storeRepository;
+    private final ScrapRepository scrapRepository;
 
 
 
@@ -37,6 +37,13 @@ public class ScrapService {
         Member member = memberRepository.findById(memberId).get();
 
         Store store = storeRepository.findById(scrapDto.getStore().getId()).get();
+
+//        List<Scrap> scrapList = scrapRepository.findAllByScrap(store);
+//
+//        for(Scrap s : scrapList){
+//
+//            if(s.getMember().getId() == )
+//        }
 
         Scrap scrap = scrapRepository.save(scrapDto.toEntity());
 

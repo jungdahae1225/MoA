@@ -1,9 +1,14 @@
 package com.moaserver.moa.controller;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.moaserver.moa.entity.mypage.LoginRequestDto;
 import com.moaserver.moa.entity.mypage.Member;
 import com.moaserver.moa.entity.mypage.MemberRequestDto;
 import com.moaserver.moa.exception.MemberException;
+import com.moaserver.moa.jwt.JwtTokenProvider;
+import com.moaserver.moa.repository.MemberRepository;
+import com.moaserver.moa.service.LoginService;
 import com.moaserver.moa.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +27,10 @@ import java.util.Optional;
 public class MemberController {
 
     private final MemberService memberService;
+    private final LoginService loginService;
+    private final MemberRepository memberRepository;
+
+    private final JwtTokenProvider jwtTokenProvider;
 
     /*
     회원가입 API
@@ -34,6 +43,14 @@ public class MemberController {
         }
 
         return memberService.join(memberDto);
+    }
+
+    /*
+    로그인 API
+     */
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequestDto memberDto) {
+        return loginService.login(memberDto);
     }
 
 
