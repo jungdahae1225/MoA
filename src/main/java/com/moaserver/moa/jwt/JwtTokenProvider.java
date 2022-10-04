@@ -1,5 +1,8 @@
 package com.moaserver.moa.jwt;
 
+import com.moaserver.moa.entity.mypage.Member;
+import com.moaserver.moa.entity.mypage.TokenInfo;
+import com.moaserver.moa.repository.MemberRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -16,12 +19,14 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 // 토큰을 생성하고 검증하는 클래스
 @RequiredArgsConstructor
 @Component
 public class JwtTokenProvider {
     private String secretKey = "myprojectsecret";
+    private final MemberRepository memberRepository;
 
     // 토큰 유효시간 50일
     private long tokenValidTime = 1000L * 60 * 60 * 24 * 50;
@@ -36,19 +41,32 @@ public class JwtTokenProvider {
     }
 
     // JWT 토큰 생성
-    public String createToken(String email) {
+    public TokenInfo createToken(String email) {
         Claims claims = Jwts.claims().setSubject(email); // JWT payload 에 저장되는 정보단위, 보통 여기서 user를 식별하는 값을 넣는다.
 
         Date now = new Date();
 
-        return Jwts.builder()
+        String accessToken = Jwts.builder()
                 .setClaims(claims) // 정보 저장
                 .setIssuedAt(now) // 토큰 발행 시간 정보
                 .setExpiration(new Date(now.getTime() + tokenValidTime)) // set Expire Time
                 .signWith(SignatureAlgorithm.HS256, secretKey)  // 사용할 암호화 알고리즘과
                 // signature 에 들어갈 secret값 세팅
                 .compact();
+
+        Optional<Member> fMember = memberRepository.findByEmail(email);
+
+        Long memberId = fMember.get().getId();
+
+
+        return TokenInfo.builder()
+                .accessToken(accessToken)
+                .id(memberId)
+                .build();
     }
+
+
+
 
     // JWT 토큰에서 인증 정보 조회
     public Authentication getAuthentication(String token) {
@@ -75,4 +93,5 @@ public class JwtTokenProvider {
             return false;
         }
     }
+
 }

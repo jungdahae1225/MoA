@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.moaserver.moa.entity.mypage.LoginRequestDto;
 import com.moaserver.moa.entity.mypage.Member;
 import com.moaserver.moa.entity.mypage.MemberRequestDto;
+import com.moaserver.moa.entity.mypage.TokenInfo;
 import com.moaserver.moa.exception.MemberException;
 import com.moaserver.moa.jwt.JwtTokenProvider;
 import com.moaserver.moa.repository.MemberRepository;
@@ -49,7 +50,7 @@ public class MemberController {
     로그인 API
      */
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequestDto memberDto) {
+    public TokenInfo login(@RequestBody LoginRequestDto memberDto) {
         return loginService.login(memberDto);
     }
 

@@ -33,7 +33,7 @@ public class MemberService {
     //패스워드 암호화 추가
     public Member join(MemberRequestDto memberDto) {
 
-        duplicatedMemberByName(memberDto.getNickname());
+        duplicatedMemberByName(memberDto.getEmail());
 
         String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
         memberDto.setPassword(encodedPassword);
@@ -45,8 +45,9 @@ public class MemberService {
     이메일(아이디) 중복검사
      */
     private void duplicatedMemberByName(String email) {
-        if (findByEmail(email).isPresent()) {
-            throw new MemberException("이미 존재하는 이메일입니다");
+
+        if(memberRepository.findByEmail(email).isPresent()){
+            throw new MemberException("이미 사용중인 이메일주소입니다");
         }
     }
 
@@ -92,10 +93,8 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-    public Optional<Member> findByEmail(String email) {
 
-        return memberRepository.findByEmail(email);
-    }
+
 
 
 }
