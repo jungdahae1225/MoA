@@ -31,21 +31,43 @@ public class StoreService {
         double memberLng = member.getLongitude(); //멤버의 경도
 
         List<Store> stores = storeRepository.findAll();
-        List<Store> nearStores = new ArrayList<>();
+        List<Store> myStores = new ArrayList<>();
 
-        for(Store store : stores) {
-            double storeLat = store.getLat();
-            double storeLng = store.getLng();
-
-            double lat = (memberLat - storeLat) * (memberLat - storeLat);
-            double lng = (memberLng - storeLng) * (memberLng - storeLng);
-
-            double distance = Math.sqrt(lat + lng);
-
-            if (distance < 50000) {//km로 계산 되기 때문.
-                nearStores.add(store);
-            }
+        for (Store store : stores) {
+            if (distance(memberLat, memberLng, store.getLat(), store.getLng(), "meter") < 500)
+                myStores.add(store);
         }
-        return nearStores;
+        return myStores;
     }
+
+    private static double distance(double lat1, double lon1, double lat2, double lon2, String unit) {
+
+        double theta = lon1 - lon2;
+        double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515;
+
+        if (unit == "kilometer") {
+            dist = dist * 1.609344;
+        } else if(unit == "meter"){
+            dist = dist * 1609.344;
+        }
+
+        return (dist);
+    }
+
+
+    // This function converts decimal degrees to radians
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
+    }
+
+    // This function converts radians to decimal degrees
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
+    }
+
 }
+

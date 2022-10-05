@@ -27,7 +27,7 @@ public class StoreController {
     //주변 사용처
     @GetMapping("/store")
     public ResponseEntity<List<Store>> StoreAll(@PathVariable Long memberId) {
-        List<Store> nearBy = storeService.findNearBy(memberId);
+        List<Store> nearBy = storeRepository.findAll();
         return new ResponseEntity(nearBy,HttpStatus.CREATED);
     }
 
