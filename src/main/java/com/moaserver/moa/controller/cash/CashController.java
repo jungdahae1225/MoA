@@ -74,7 +74,7 @@ public class CashController {
      * 멤버의 마일리지 조회
      * @return
      */
-    @GetMapping("/mileage/{memberid}")
+    @GetMapping("/mileage/{memberId}")
     public ResponseEntity<Member> mileage(@PathVariable Long memberId) {
 
         Optional<Member> findMember = memberRepository.findById(memberId);
