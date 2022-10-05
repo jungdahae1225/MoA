@@ -2,6 +2,7 @@ package com.moaserver.moa.controller;
 
 import com.moaserver.moa.entity.store.Store;
 import com.moaserver.moa.entity.store.StoreDto;
+import com.moaserver.moa.errors.UserException;
 import com.moaserver.moa.repository.StoreRepository;
 import com.moaserver.moa.service.store.StoreService;
 import lombok.RequiredArgsConstructor;
@@ -26,15 +27,18 @@ public class StoreController {
 
     //주변 사용처
     @GetMapping("/store")
-    public ResponseEntity<List<Store>> StoreAll(@PathVariable Long memberId) {
+    public ResponseEntity<List<Store>> StoreAll() {
         List<Store> nearBy = storeRepository.findAll();
         return new ResponseEntity(nearBy,HttpStatus.CREATED);
     }
 
     //주변 사용처
-    @GetMapping("/store/{memberid}")
+    @GetMapping("/store/{memberId}")
     public ResponseEntity<List<Store>> location(@PathVariable Long memberId) {
         List<Store> nearBy = storeService.findNearBy(memberId);
+        if(nearBy == null){
+            throw new UserException("조회된 결과가 없습니다.");
+        }
         return new ResponseEntity(nearBy,HttpStatus.CREATED);
     }
 
