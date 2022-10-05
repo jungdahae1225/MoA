@@ -44,6 +44,7 @@ public class SecurityConfig  {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/signUp", "/login").permitAll()
+                .antMatchers("/store", "/store/**").permitAll()
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()   // 그 외 모든 요청은 인증된 사용자만 접근 가능
                 .and()
