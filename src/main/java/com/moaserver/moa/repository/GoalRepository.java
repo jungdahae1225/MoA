@@ -12,5 +12,7 @@ public interface GoalRepository extends JpaRepository<Goal, Long> {
 
     List<Goal> findByMemberAndDate(Member member, YearMonth date);
 
+    Long countByMemberAndDate(Member member, YearMonth date);
+
 }
 

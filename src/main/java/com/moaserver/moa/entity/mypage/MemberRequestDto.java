@@ -2,7 +2,6 @@ package com.moaserver.moa.entity.mypage;
 
 import lombok.*;
 
-import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -21,11 +20,7 @@ public class MemberRequestDto {
 
     @NotBlank(message = "패스워드 입력은 필수입니다")
     private String password;
-    private String userSchool;
 
-    private String latitude;
-
-    private String longitude;
 
 
     //dto -> entity
@@ -35,7 +30,6 @@ public class MemberRequestDto {
                 .nickname(nickname)
                 .email(email)
                 .password(password)
-                .userSchool(userSchool)
                 .build();
 
         return member;

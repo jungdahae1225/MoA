@@ -6,6 +6,8 @@ import com.moaserver.moa.entity.mypage.MemberRequestDto;
 import com.moaserver.moa.exception.MemberException;
 import com.moaserver.moa.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,13 +18,25 @@ import java.util.Optional;
 @Transactional
 public class MemberService {
 
+    @Autowired
     private final MemberRepository memberRepository;
 
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
+
+//    @Autowired
+//    public MemberService(PasswordEncoder passwordEncoder) {
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     //회원가입
+    //패스워드 암호화 추가
     public Member join(MemberRequestDto memberDto) {
 
-        duplicatedMemberByName(memberDto.getNickname());
+        duplicatedMemberByName(memberDto.getEmail());
+
+        String encodedPassword = passwordEncoder.encode(memberDto.getPassword());
+        memberDto.setPassword(encodedPassword);
 
         return memberRepository.save(memberDto.toEntity());
     }
@@ -31,10 +45,12 @@ public class MemberService {
     이메일(아이디) 중복검사
      */
     private void duplicatedMemberByName(String email) {
-        if (findByEmail(email).isPresent()) {
-            throw new MemberException("이미 존재하는 이메일입니다");
+
+        if(memberRepository.findByEmail(email).isPresent()){
+            throw new MemberException("이미 사용중인 이메일주소입니다");
         }
     }
+
 
 
     //학교등록
@@ -56,7 +72,7 @@ public class MemberService {
 
         Member member = fMember.get();
 
-        member.ProfileUpdate(updateDto.getNickname(), updateDto.getPassword());
+        member.ProfileUpdate(updateDto.getNickname(), passwordEncoder.encode(updateDto.getPassword()));
 
         return memberRepository.save(member);
 
@@ -77,10 +93,8 @@ public class MemberService {
         return memberRepository.findById(memberId);
     }
 
-    public Optional<Member> findByEmail(String email) {
 
-        return memberRepository.findByEmail(email);
-    }
+
 
 
 }
